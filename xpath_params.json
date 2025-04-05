@@ -1,0 +1,9 @@
+{
+    "inputXPath": "//*[@id='host']",
+    "submitXPath": "//*[@id='screenshots']/div/div/div/div[3]/div/div/div[2]/button[1]",
+    "submitSlowXPath": "//*[@id='slow_check']",
+    "scrapeXPath": "//*[@id='complete_progress']/div/text()",
+    "clickXPath": "//*[@id='return_info']/div/div/div[1]/span[1]/label[7]",
+    "columnXPath": "//*[@id='simpletable']/tbody/tr[@class='node_tr' and @node and @time_out and not(contains(@style,'display:none'))]/td[1]",
+    "stopTimeSec": 60
+} 

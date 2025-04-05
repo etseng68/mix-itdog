@@ -1,0 +1,39 @@
+{
+    "manifest_version": 3,
+    "name": "ITDOG-WebMix 網站測速",
+    "version": "1.0",
+    "description": "網站測速與數據採集工具",
+    "icons": {
+        "16": "icons/lightning16.png",        
+        "48": "icons/lightning48.png",
+        "128": "icons/lightning128.png"
+    },
+    "action": {
+        "default_popup": "",
+        "default_icon": {
+            "16": "icons/lightning16.png",            
+            "48": "icons/lightning48.png",
+            "128": "icons/lightning128.png"
+        }
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage",
+        "downloads",
+        "windows"
+    ],
+    "host_permissions": [
+        "https://www.itdog.cn/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://www.itdog.cn/http/*"],
+            "js": ["content.js"],
+            "run_at": "document_end"
+        }
+    ]
+} 

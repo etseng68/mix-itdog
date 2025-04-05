@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            width: 400px;
+            padding: 15px;
+            font-family: Arial, sans-serif;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 8px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .title h2 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .title p {
+            margin: 3px 0 0;
+            font-size: 11px;
+            opacity: 0.9;
+        }
+        .designer-info {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            font-size: 10px;
+            font-style: italic;
+            opacity: 0.8;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: opacity 0.3s ease;
+        }
+        .designer-info:hover {
+            opacity: 1;
+        }
+        .form-group {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #495057;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .form-control, .input-control {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        hr {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px solid #dee2e6;
+        }
+        .form-row {
+            margin-bottom: 5px;
+        }
+        .form-row-content {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .form-row input {
+            flex: 1;
+        }
+        .form-row button {
+            width: 80px;
+        }
+        .domain-form {
+            margin-bottom: 15px;
+        }
+        .domain-form input {
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        .domain-form button {
+            float: right;
+            margin-bottom: 5px;
+        }
+        .result-row {
+            background-color: #f5f5f5;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            min-height: 20px;
+            word-break: break-all;
+            clear: both;
+        }
+        #log {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            height: 200px;
+            background-color: #f8f8f8;
+            color: #666;
+            font-family: monospace;
+            overflow-y: auto;
+            white-space: nowrap;
+        }
+        .input-group {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .input-group input {
+            margin-bottom: 10px;
+        }
+        .button-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 4px;
+            margin-top: 4px;
+        }
+        .button-row button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.2s;
+        }
+        .button-row button:hover {
+            background-color: #0056b3;
+        }
+        .collapsible-group {
+            margin-bottom: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+        .collapsible-header {
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: #495057;
+        }
+        .collapsible-content {
+            display: none;
+            padding: 15px;
+            background-color: white;
+        }
+        .collapsible-content.show {
+            display: block;
+        }
+        .arrow {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #495057;
+            border-bottom: 2px solid #495057;
+            transform: rotate(45deg);
+            transition: transform 0.3s;
+        }
+        .collapsed .arrow {
+            transform: rotate(-135deg);
+        }
+        .input-group-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-group-inline .button-row {
+            margin-top: 0;
+            flex-shrink: 0;
+        }
+        
+        .input-group-inline .result-row {
+            margin-bottom: 0;
+            flex: 1;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+        .collapsible-group .input-group {
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            background-color: transparent;
+        }
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            padding: 6px 10px;
+            background-color: white;
+            border: 2px dashed #007bff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .file-upload-label:hover {
+            background-color: #f8f9fa;
+            border-color: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .file-upload-icon {
+            margin-right: 8px;
+            color: #007bff;
+            font-size: 20px;
+        }
+        .file-upload-text {
+            color: #495057;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        .file-name {
+            margin-top: 2px;
+            padding: 2px 6px;
+            font-size: 12px;
+            color: #6c757d;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            word-break: break-all;
+            min-height: 16px;
+        }
+        .file-upload-label.hover {
+            background-color: #e9ecef;
+            border-style: solid;
+            border-color: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .file-upload-label:active {
+            background-color: #e2e6ea;
+            border-color: #004085;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h2>ITDOG-WebMix 網站測速</h2>
+        <p>網站測速與數據採集工具</p>
+        <div class="designer-info">designed by edward</div>
+    </div>
+
+    <div class="form-group">
+        <label for="domainFile">批次處理網域檔案</label>
+        <div class="file-upload">
+            <label class="file-upload-label" for="domainFile">
+                <span class="file-upload-icon">📁</span>
+                <span class="file-upload-text">選擇檔案或拖放至此</span>
+            </label>
+            <input type="file" id="domainFile" accept=".txt" class="form-control">
+            <div class="file-name"></div>
+        </div>
+        <div class="checkbox-row" style="margin: 8px 0;">
+            <label class="checkbox-label" style="display: flex; align-items: center; font-size: 13px; color: #495057;">
+                <input type="checkbox" id="writeEmptyToCSV" checked style="margin-right: 8px;">
+                訪問失敗空白寫入CSV
+            </label>
+        </div>
+        <div class="button-row" style="margin-top: 4px;">
+            <button id="processDomainsButton" class="btn btn-primary" style="width: 49%;">快速批次處理</button>
+            <button id="processDomainsSlowButton" class="btn btn-primary" style="width: 49%;">緩慢批次處理</button>
+        </div>
+    </div>
+
+    <div class="collapsible-group">
+        <div class="collapsible-header">
+            <span>單網域處理</span>
+            <i class="arrow"></i>
+        </div>
+        <div class="collapsible-content">
+            <div class="input-group">
+                <label>網域</label>
+                <input type="text" id="domainInput" class="input-control" placeholder="請輸入網域">
+                <div class="button-row">
+                    <button id="fillSubmitButton">快速測試</button>
+                    <button id="fillSubmitSlowButton">緩慢測試</button>
+                </div>
+                <div id="fillSubmitResult" class="result-row"></div>
+            </div>
+
+            <div class="input-group">
+                <label>爬取設定</label>
+                <div class="input-group-inline">
+                    <div class="button-row">
+                        <button id="scrapeButton">爬取</button>
+                    </div>
+                    <div id="scrapeResult" class="result-row"></div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>點擊設定</label>
+                <div class="input-group-inline">
+                    <div class="button-row">
+                        <button id="clickButton">點擊</button>
+                    </div>
+                    <div id="clickResult" class="result-row"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>頡取設定</label>
+                <div class="input-group-inline">
+                    <div class="button-row">
+                        <button id="extractButton">頡取</button>
+                    </div>
+                    <div id="extractResult" class="result-row"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="log"></div>
+
+    <div class="collapsible-group">
+        <div class="collapsible-header">
+            <span>參數設定</span>
+            <i class="arrow"></i>
+        </div>
+        <div class="collapsible-content">
+            <div class="input-group">
+                <label>參數檔案</label>
+                <input type="file" id="paramFile" accept=".json" class="input-control">
+                <button id="loadParamsButton" class="btn btn-primary">載入參數</button>
+            </div>
+
+            <div class="input-group">
+                <label>XPath 設定</label>
+                <input type="text" id="inputXpathInput" class="input-control" placeholder="輸入框 XPath" value="//*[@id='host']">
+                <input type="text" id="submitXpathInput" class="input-control" placeholder="提交按鈕 XPath" value="//*[@id='screenshots']/div/div/div/div[3]/div/div/div[2]/button[1]">
+                <input type="text" id="submitSlowXpathInput" class="input-control" placeholder="緩慢測試按鈕 XPath" value="//*[@id='slow_check']">
+                <input type="text" id="xpathInput" class="input-control" placeholder="爬取 XPath" value="//*[@id='complete_progress']/div/text()">
+                <input type="text" id="clickXpathInput" class="input-control" placeholder="點擊 XPath" value="//*[@id='return_info']/div/div/div[1]/span[1]/label[7]">
+                <input type="text" id="columnXpathInput" class="input-control" placeholder="頡取 XPath" value="//*[@id='simpletable']/tbody/tr[@class='node_tr' and @node and @time_out and not(contains(@style,'display:none'))]/td[1]">
+            </div>
+
+            <div class="input-group">
+                <label>緩慢測試設定</label>
+                <input type="number" id="stopTimeSecInput" class="input-control" placeholder="等待秒數" value="60">
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html> 
